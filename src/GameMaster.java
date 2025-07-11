@@ -1,20 +1,16 @@
 import java.util.ArrayList;
 
 public class GameMaster {
-    private ArrayList<Character> party = new ArrayList<>();
-    private ArrayList<Monster> monsters = new ArrayList<>();
-    public void startGame() {
-        Hero hero = new Hero("勇者", 100);
-        Wizard wizard = new Wizard("魔法使い", 60);
-        Thief thief = new Thief("盗賊", 70);
+    public static void main(String[] args) {
+        ArrayList<Character> party = new ArrayList<Character>();
+        Hero hero = new Hero("勇者", 100, "剣");party.add(hero);
+        Wizard wizard = new Wizard("魔法使い", 60, 999999999);party.add(wizard);
+        Thief thief = new Thief("盗賊", 70);party.add(thief);
 
-        party.add(hero);
-        party.add(wizard);
-        party.add(thief);
-
-        monsters.add(new Goblin("お化けキノコA",45));
-        monsters.add(new Matango("ゴブリンA", 50));
-        monsters.add(new Slime("スライムA", 40));
+        ArrayList<Monster> monsters = new ArrayList<Monster>();
+        Matango matango = new Matango('A', 45);monsters.add(matango);
+        Goblin goblin= new Goblin('A',50);monsters.add(goblin);
+        Slime slime = new Slime('A',40);monsters.add(slime);
 
         System.out.println("---味方パーティ---");
         for (Character c : party) {
@@ -27,43 +23,38 @@ public class GameMaster {
         System.out.println("\n味方の総攻撃!");
         for (Character c : party) {
             for (Monster m : monsters) {
-                if (m.isAlive()) {
                     c.attack(m);
-                }
             }
         }
         System.out.println("\n敵の総攻撃!");
         for (Monster m : monsters) {
             for (Character c : party) {
-                if (c.isAlive()) {
                     m.attack(c);
-                }
             }
         }
-        System.out.println("\n=== クラスチェンジイベント ===");
-        SuperHero superHero = new SuperHero(hero.getName(), hero.getHp(), hero.getPower() + 20);
-        party.set(0, superHero);
-        // SuperHeroによる再攻撃
-        System.out.println("\n=== SuperHeroの強力な攻撃 ===");
+        System.out.println("\nダメージを受けた勇者が突然光だした!");
+        party.set(0, new SuperHero(hero));
+        System.out.println("勇者はスーパーヒーローに進化した!");
         for (Monster m : monsters) {
-            if (m.isAlive()) {
-                superHero.attack(m);
-            }
+            party.get(0).attack(m);
         }
-        System.out.println("\n=== 最終ステータス ===");
-        System.out.println("味方：");
+        System.out.println("\n---味方パーティ最終ステータス---");
         for (Character c : party) {
             c.showStatus();
-            System.out.println(c.isAlive() ? "→ 生存" : "→ 戦闘不能");
+            if(c.isAlive()){
+                System.out.println("生存状況:生存");
+            }else{
+                System.out.println("生存状況:死亡");
+            }
         }
-        System.out.println("敵：");
+        System.out.println("\n---敵グループ最終ステータス");
         for (Monster m : monsters) {
             m.showStatus();
-            System.out.println(m.isAlive() ? "→ 生存" : "→ 討伐済み");
+            if(m.isAlive()) {
+                System.out.println("生存状況:生存");
+            }else{
+                System.out.println("生存状況:討伐済み");
+            }
         }
-    }
-    public static void main(String[] args) {
-        GameMaster gm = new GameMaster();
-        gm.startGame();
     }
 }

@@ -15,10 +15,6 @@ public class Hero extends Character{
 
     public void attack(Creature target){
         System.out.println(this.getName() + "は" + this.weapon + "で攻撃!" + target.getName() + "に10のダメージを与えた!");
-        target.hp -= 10;
-    }
-    public void heal(){
-        System.out.println(this.getName() + "は回復呪文を唱えた!HPが20回復した!");
-        this.hp += 20;
+        target.setHp(target.getHp()-10);
     }
 }
