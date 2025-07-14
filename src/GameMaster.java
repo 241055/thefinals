@@ -4,7 +4,7 @@ public class GameMaster {
     public static void main(String[] args) {
         ArrayList<Character> party = new ArrayList<Character>();
         Hero hero = new Hero("勇者", 100, "剣");party.add(hero);
-        Wizard wizard = new Wizard("魔法使い", 60, 999999999);party.add(wizard);
+        Wizard wizard = new Wizard("魔法使い", 60, 20);party.add(wizard);
         Thief thief = new Thief("盗賊", 70);party.add(thief);
 
         ArrayList<Monster> monsters = new ArrayList<Monster>();
